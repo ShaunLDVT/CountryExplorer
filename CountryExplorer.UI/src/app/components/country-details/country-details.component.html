@@ -1,0 +1,66 @@
+<div class="container" *ngIf="!loading && !error && country">
+    <button class="back-button" (click)="goBack()">← Back to Countries</button>
+    
+    <div class="country-detail">
+      <div class="flag-section">
+        <img [src]="country.flagUrl" [alt]="country.commonName + ' flag'" class="flag-image">
+      </div>
+      
+      <div class="info-section">
+        <h1>{{ country.commonName }}</h1>
+        <p class="official-name">{{ country.officialName }}</p>
+        
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="label">Capital</div>
+            <div class="value">{{ country.capital || 'N/A' }}</div>
+          </div>
+          
+          <div class="info-item">
+            <div class="label">Population</div>
+            <div class="value">{{ country.population | number }}</div>
+          </div>
+          
+          <div class="info-item">
+            <div class="label">Region</div>
+            <div class="value">{{ country.region }}</div>
+          </div>
+          
+          <div class="info-item">
+            <div class="label">Subregion</div>
+            <div class="value">{{ country.subregion || 'N/A' }}</div>
+          </div>
+          
+          <div class="info-item">
+            <div class="label">Languages</div>
+            <div class="value">{{ getLanguages() }}</div>
+          </div>
+          
+          <div class="info-item">
+            <div class="label">Currencies</div>
+            <div class="value">{{ getCurrencies() }}</div>
+          </div>
+          
+          <div class="info-item">
+            <div class="label">Alpha-2 Code</div>
+            <div class="value">{{ country.alpha2Code }}</div>
+          </div>
+          
+          <div class="info-item">
+            <div class="label">Alpha-3 Code</div>
+            <div class="value">{{ country.alpha3Code }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading country details...</p>
+  </div>
+  
+  <div *ngIf="error" class="error-container">
+    <div class="error-message">{{ error }}</div>
+    <button class="back-button" (click)="goBack()">Back to Countries</button>
+  </div>

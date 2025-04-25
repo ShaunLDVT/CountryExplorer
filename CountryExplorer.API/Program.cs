@@ -26,9 +26,6 @@ if (string.IsNullOrEmpty(OpenApiUri))
 	throw new InvalidOperationException("The OpenApi connection string is not configured.");
 }
 
-// Fix for CS1660: The issue is that the lambda expression is being passed to AddHttpClient, which expects a named client configuration or a delegate to configure the HttpClient. 
-// The fix is to provide a named client configuration or use the overload that accepts a delegate to configure the HttpClient.
-
 builder.Services.AddHttpClient();
 
 // Register repositories
@@ -40,7 +37,7 @@ builder.Services.AddCors(options =>
 {
 	options.AddPolicy("AllowAngularApp",
 		builder => builder
-			.WithOrigins("http://localhost:4200") // Angular default port
+			.WithOrigins("http://localhost:59923")
 			.AllowAnyMethod()
 			.AllowAnyHeader());
 });
