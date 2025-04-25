@@ -22,7 +22,7 @@ namespace CountryExplorer.Infrastructure.Repositories
 
 		public async Task<IEnumerable<Country>> GetAllCountriesAsync()
 		{
-			var response = await _httpClient.GetFromJsonAsync<List<CountryApiResponse>>("/all");
+			var response = await _httpClient.GetFromJsonAsync<List<CountryApiResponse>>(BaseUrl + "/all");
 			return response?.Select(_countryMapper.MapToCountry) ?? new List<Country>();
 		}
 
