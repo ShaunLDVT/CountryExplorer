@@ -39,7 +39,7 @@ jobs:
       run: dotnet test "${{ env.BACKEND_PROJECT_PATH }}" --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --collect:"XPlat Code Coverage"
     
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: backend-test-results
         path: '**/TestResults'
