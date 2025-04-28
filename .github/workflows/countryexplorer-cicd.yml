@@ -116,7 +116,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: frontend-artifact
-        path: '${{ env.FRONTEND_PROJECT_PATH }}/dist/country-explorer-ui'
+        path: '${{ env.FRONTEND_PROJECT_PATH }}/dist/country-explorer.ui'
   
   deploy:
     runs-on: ubuntu-latest

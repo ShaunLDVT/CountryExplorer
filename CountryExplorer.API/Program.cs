@@ -41,7 +41,7 @@ builder.Services.AddCors(options =>
 			.AllowAnyHeader());
 });
 
-// Ensure the following line is present in the code
+// Redis Cache
 builder.Services.AddStackExchangeRedisCache(options =>
 {
 	options.Configuration = "localhost:6379";
