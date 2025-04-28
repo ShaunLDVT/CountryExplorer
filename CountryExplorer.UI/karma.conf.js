@@ -1,4 +1,4 @@
-﻿module.exports = function (config) {
+module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
@@ -34,11 +34,16 @@
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['Chrome', 'ChromeHeadless', 'ChromeHeadlessCI'],
+    customLaunchers: {
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox', '--disable-gpu']
+      }
+    },
     singleRun: false,
     restartOnFileChange: true,
     listenAddress: 'localhost',
     hostname: 'localhost'
   });
 };
-
