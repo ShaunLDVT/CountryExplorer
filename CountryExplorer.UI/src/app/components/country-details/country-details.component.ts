@@ -53,13 +53,31 @@ export class CountryDetailsComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  //getLanguages(): string {
+  //  if (!this.country || !this.country.languages) return 'N/A';
+  //  return Object.values(this.country.languages).join(', ');
+  //}
+
+  //getCurrencies(): string {
+  //  if (!this.country || !this.country.currencies) return 'N/A';
+  //  return Object.values(this.country.currencies)
+  //    .map(c => `${c.name} (${c.symbol})`)
+  //    .join(', ');
+  //}
+
   getLanguages(): string {
-    if (!this.country || !this.country.languages) return 'N/A';
+    if (!this.country || !this.country.languages || Object.keys(this.country.languages).length === 0) {
+      return 'N/A';
+    }
+
     return Object.values(this.country.languages).join(', ');
   }
 
   getCurrencies(): string {
-    if (!this.country || !this.country.currencies) return 'N/A';
+    if (!this.country || !this.country.currencies || Object.keys(this.country.currencies).length === 0) {
+      return 'N/A';
+    }
+
     return Object.values(this.country.currencies)
       .map(c => `${c.name} (${c.symbol})`)
       .join(', ');

@@ -90,7 +90,7 @@ describe('CountryDetailsComponent', () => {
   it('should handle case when country name is not provided', fakeAsync(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      imports: [CountryDetailsComponent], // Change from declarations to imports
+      imports: [CountryDetailsComponent],
       providers: [
         { provide: CountryService, useValue: countryServiceSpy },
         { provide: Router, useValue: routerSpy },
