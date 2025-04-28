@@ -15,13 +15,21 @@ namespace CountryExplorer.Application.CQRS.Handlers
 
 		public async Task<IEnumerable<CountrySummary>> Handle(GetAllCountriesQuery request, CancellationToken cancellationToken)
 		{
-			var countries = await _countryRepository.GetAllCountriesAsync();
-			return countries.Select(c => new CountrySummary
+			try
 			{
-				Name = c.CommonName,
-				Alpha3Code = c.Alpha3Code,
-				FlagUrl = c.FlagUrl
-			});
+				var countries = await _countryRepository.GetAllCountriesAsync();
+				return countries.Select(c => new CountrySummary
+				{
+					Name = c.CommonName,
+					Alpha3Code = c.Alpha3Code,
+					FlagUrl = c.FlagUrl
+				});
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error in GetAllCountriesHandler: {ex.Message}");
+				throw;
+			}
 		}
 	}
 }

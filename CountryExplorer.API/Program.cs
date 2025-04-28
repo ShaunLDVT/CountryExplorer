@@ -4,6 +4,7 @@ using CountryExplorer.Core.Interfaces;
 using CountryExplorer.Core.Mappers;
 using CountryExplorer.Infrastructure.Interfaces;
 using CountryExplorer.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,18 +14,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-	c.SwaggerDoc("v1", new OpenApiInfo { Title = "Country Explorer API", Version = "v1" });
+	c.SwaggerDoc("v1", new OpenApiInfo
+	{
+		Title = "Country API",
+		Version = "v1.0.0",
+		Description = "API for retrieving country information"
+	});
 });
 
 // Add MediatR with auto registration
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAllCountriesHandler).Assembly));
-
-// Register HttpClient for repository
-var OpenApiUri = builder.Configuration["Urls:OpenApi"];
-if (string.IsNullOrEmpty(OpenApiUri))
-{
-	throw new InvalidOperationException("The OpenApi connection string is not configured.");
-}
 
 builder.Services.AddHttpClient();
 
@@ -42,6 +41,13 @@ builder.Services.AddCors(options =>
 			.AllowAnyHeader());
 });
 
+// Ensure the following line is present in the code
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+	options.Configuration = "localhost:6379"; // TODO: Replace with Redis server configuration
+	options.InstanceName = "CountryExplorer_";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
@@ -55,6 +61,23 @@ app.UseHttpsRedirection();
 app.UseCors("AllowAngularApp");
 app.UseAuthorization();
 app.MapControllers();
+
+app.UseExceptionHandler(errorApp =>
+{
+	errorApp.Run(async context =>
+	{
+		context.Response.StatusCode = 500;
+		context.Response.ContentType = "application/json";
+
+		var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+		if (exception != null)
+		{
+			var errorResponse = new { Message = exception.Message };
+			await context.Response.WriteAsJsonAsync(errorResponse);
+		}
+	});
+});
+
 
 app.Run();
 

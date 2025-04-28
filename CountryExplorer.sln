@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountryExplorer.Application
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountryExplorer.Infrastructure", "CountryExplorer.Infrastructure\CountryExplorer.Infrastructure.csproj", "{7D72D8F6-5BCA-4F62-99F5-959D5B99F424}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{59B2B8C4-8F06-4B84-B070-9429BAD73350}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountryExplorer.UnitTests", "UnitTests\CountryExplorer.UnitTests.csproj", "{59B2B8C4-8F06-4B84-B070-9429BAD73350}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "CountryExplorer.UI", "CountryExplorer.UI\CountryExplorer.UI.esproj", "{DFF11677-03D7-A6B3-B7B1-91C12BF875C4}"
 EndProject
