@@ -30,7 +30,7 @@ builder.Services.AddHttpClient();
 // Register repositories
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<ICountryMapper, CountryMapper>();
-builder.Services.AddScoped<IConfigurationManager, ConfigurationManager>();
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 // Add CORS
 builder.Services.AddCors(options =>
@@ -45,7 +45,7 @@ builder.Services.AddCors(options =>
 // Ensure the following line is present in the code
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-	options.Configuration = "localhost:6379"; // TODO: Replace with Redis server configuration
+	options.Configuration = "localhost:6379";
 	options.InstanceName = "CountryExplorer_";
 });
 
