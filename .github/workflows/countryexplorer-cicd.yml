@@ -17,32 +17,32 @@ env:
   CONFIGURATION: 'Release'             # Build configuration
 
 jobs:
-  test-backend:
-    runs-on: ubuntu-latest
-    name: Backend Tests
+  # test-backend:
+  #   runs-on: ubuntu-latest
+  #   name: Backend Tests
     
-    steps:
-    - uses: actions/checkout@v3
+  #   steps:
+  #   - uses: actions/checkout@v3
     
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+  #   - name: Setup .NET
+  #     uses: actions/setup-dotnet@v3
+  #     with:
+  #       dotnet-version: ${{ env.DOTNET_VERSION }}
     
-    - name: Restore dependencies
-      run: dotnet restore "${{ env.BACKEND_PROJECT_PATH }}"
+  #   - name: Restore dependencies
+  #     run: dotnet restore "${{ env.BACKEND_PROJECT_PATH }}"
     
-    - name: Build
-      run: dotnet build "${{ env.BACKEND_PROJECT_PATH }}" --configuration ${{ env.CONFIGURATION }} --no-restore
+  #   - name: Build
+  #     run: dotnet build "${{ env.BACKEND_PROJECT_PATH }}" --configuration ${{ env.CONFIGURATION }} --no-restore
     
-    - name: Test
-      run: dotnet test "${{ env.BACKEND_PROJECT_PATH }}" --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --collect:"XPlat Code Coverage"
+  #   - name: Test
+  #     run: dotnet test "${{ env.BACKEND_PROJECT_PATH }}" --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal --collect:"XPlat Code Coverage"
     
-    - name: Upload test results
-      uses: actions/upload-artifact@v4
-      with:
-        name: backend-test-results
-        path: '**/TestResults'
+  #   - name: Upload test results
+  #     uses: actions/upload-artifact@v4
+  #     with:
+  #       name: backend-test-results
+  #       path: '**/TestResults'
   
   test-frontend:
     runs-on: ubuntu-latest

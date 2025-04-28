@@ -30,7 +30,6 @@ builder.Services.AddHttpClient();
 // Register repositories
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<ICountryMapper, CountryMapper>();
-builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 // Add CORS
 builder.Services.AddCors(options =>
