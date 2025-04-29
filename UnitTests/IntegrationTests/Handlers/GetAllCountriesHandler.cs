@@ -6,11 +6,6 @@ using CountryExplorer.Infrastructure.Interfaces;
 using CountryExplorer.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace CountryExplorer.UnitTests.IntegrationTests.Handlers
 {
@@ -24,11 +19,11 @@ namespace CountryExplorer.UnitTests.IntegrationTests.Handlers
 			_services = new ServiceCollection();
 
 			var configuration = new ConfigurationBuilder()
-		.AddInMemoryCollection(new Dictionary<string, string>
-		{
-			{ "Urls:CountryApiBaseUrl", "https://restcountries.com/v3.1" }
-		})
-		.Build();
+				.AddInMemoryCollection(new Dictionary<string, string>
+					{
+						{ "Urls:CountryApiBaseUrl", "https://restcountries.com/v3.1" }
+					}).Build();
+			_services.AddSingleton<IConfiguration>(configuration);
 
 			_services.AddMemoryCache();
 			_services.AddHttpClient();
