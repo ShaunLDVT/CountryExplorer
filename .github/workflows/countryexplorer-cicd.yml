@@ -9,12 +9,12 @@ on:
     # Allow manual trigger
 
 env:
-  DOTNET_VERSION: '9.0.x'              # .NET version to use
-  NODE_VERSION: '20.x'                 # Node.js version for Angular
-  BACKEND_PROJECT_PATH: '.'            # Path to backend solution
-  FRONTEND_PROJECT_PATH: './CountryExplorer.UI'  # Path to Angular project
-  AZURE_WEBAPP_NAME: 'countryexplorer' # Name of the Azure Web App
-  CONFIGURATION: 'Release'             # Build configuration
+  DOTNET_VERSION: '9.0.x'
+  NODE_VERSION: '20.x'
+  BACKEND_PROJECT_PATH: '.'
+  FRONTEND_PROJECT_PATH: './CountryExplorer.UI'
+  AZURE_WEBAPP_NAME: 'countryexplorer'
+  CONFIGURATION: 'Release'
 
 jobs:
   test-backend:
@@ -118,42 +118,43 @@ jobs:
         name: frontend-artifact
         path: '${{ env.FRONTEND_PROJECT_PATH }}/dist/country-explorer.ui'
   
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    name: Deploy Applications
-    if: github.event_name != 'pull_request' # Only deploy on push to main/develop
-    environment:
-      name: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }}
+  # How a deploy would look
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   name: Deploy Applications
+  #   if: github.event_name != 'pull_request'
+  #   environment:
+  #     name: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }}
     
-    steps:
-    - name: Download Backend Artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: backend-artifact
-        path: ./backend
+  #   steps:
+  #   - name: Download Backend Artifact
+  #     uses: actions/download-artifact@v4
+  #     with:
+  #       name: backend-artifact
+  #       path: ./backend
     
-    - name: Download Frontend Artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: frontend-artifact
-        path: ./frontend
+  #   - name: Download Frontend Artifact
+  #     uses: actions/download-artifact@v4
+  #     with:
+  #       name: frontend-artifact
+  #       path: ./frontend
     
-    # Example deployment to Azure Web App
-    - name: Deploy Backend to Azure
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}-api
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACKEND }}
-        package: ./backend
+  #   # Example deployment to Azure Web App
+  #   - name: Deploy Backend to Azure
+  #     uses: azure/webapps-deploy@v2
+  #     with:
+  #       app-name: ${{ env.AZURE_WEBAPP_NAME }}-api
+  #       publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACKEND }}
+  #       package: ./backend
     
-    # Example deployment to Azure Static Web App
-    - name: Deploy Frontend to Azure
-      uses: Azure/static-web-apps-deploy@v1
-      with:
-        azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        action: "upload"
-        app_location: ./frontend
-        api_location: ""
-        output_location: ""
+  #   # Example deployment to Azure Static Web App
+  #   - name: Deploy Frontend to Azure
+  #     uses: Azure/static-web-apps-deploy@v1
+  #     with:
+  #       azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+  #       repo_token: ${{ secrets.GITHUB_TOKEN }}
+  #       action: "upload"
+  #       app_location: ./frontend
+  #       api_location: ""
+  #       output_location: ""
