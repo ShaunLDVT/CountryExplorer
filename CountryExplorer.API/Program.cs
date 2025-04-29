@@ -1,10 +1,10 @@
 // CountryExplorer.API/Program.cs
+using CountryExplorer.API.Middleware;
 using CountryExplorer.Application.CQRS.Handlers;
 using CountryExplorer.Core.Interfaces;
 using CountryExplorer.Core.Mappers;
 using CountryExplorer.Infrastructure.Interfaces;
 using CountryExplorer.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +26,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAllCountriesHandler).Assembly));
 
 builder.Services.AddHttpClient();
+builder.Services.AddTransient<GlobalExceptionHandlerMiddleware>();
 
 // Register repositories
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
@@ -57,27 +58,11 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseCors("AllowAngularApp");
 app.UseAuthorization();
 app.MapControllers();
-
-app.UseExceptionHandler(errorApp =>
-{
-	errorApp.Run(async context =>
-	{
-		context.Response.StatusCode = 500;
-		context.Response.ContentType = "application/json";
-
-		var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
-		if (exception != null)
-		{
-			var errorResponse = new { Message = exception.Message };
-			await context.Response.WriteAsJsonAsync(errorResponse);
-		}
-	});
-});
-
 
 app.Run();
 

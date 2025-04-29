@@ -3,12 +3,13 @@ import { CountryService } from '../../services/country.service';
 import { CountrySummary } from '../../models/country-summary';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-country-list',
   templateUrl: './country-list.component.html',
   styleUrls: ['./country-list.component.scss'],
-  imports: [CommonModule]
+  imports: [CommonModule, MatProgressSpinner]
 })
 export class CountryListComponent implements OnInit {
   countries: CountrySummary[] = [];

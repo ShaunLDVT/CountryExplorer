@@ -3,12 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CountryService } from '../../services/country.service';
 import { Country } from '../../models/country';
 import { CommonModule } from '@angular/common';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+
 
 @Component({
   selector: 'app-country-details',
   templateUrl: './country-details.component.html',
   styleUrls: ['./country-details.component.scss'],
-  imports: [CommonModule]
+  imports: [CommonModule, MatProgressSpinner]
 })
 export class CountryDetailsComponent implements OnInit {
   country: Country | null = null;
@@ -52,18 +54,6 @@ export class CountryDetailsComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/']);
   }
-
-  //getLanguages(): string {
-  //  if (!this.country || !this.country.languages) return 'N/A';
-  //  return Object.values(this.country.languages).join(', ');
-  //}
-
-  //getCurrencies(): string {
-  //  if (!this.country || !this.country.currencies) return 'N/A';
-  //  return Object.values(this.country.currencies)
-  //    .map(c => `${c.name} (${c.symbol})`)
-  //    .join(', ');
-  //}
 
   getLanguages(): string {
     if (!this.country || !this.country.languages || Object.keys(this.country.languages).length === 0) {
