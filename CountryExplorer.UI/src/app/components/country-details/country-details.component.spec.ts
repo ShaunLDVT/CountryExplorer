@@ -36,7 +36,7 @@ describe('CountryDetailsComponent', () => {
     const router = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
-      imports: [CountryDetailsComponent], // Import instead of declare for standalone components
+      imports: [CountryDetailsComponent],
       providers: [
         { provide: CountryService, useValue: countryService },
         { provide: Router, useValue: router },
@@ -97,7 +97,7 @@ describe('CountryDetailsComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            paramMap: of(convertToParamMap({})) // Empty params
+            paramMap: of(convertToParamMap({}))
           }
         }
       ]

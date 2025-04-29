@@ -22,7 +22,7 @@ describe('CountryListComponent', () => {
     const router = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, CountryListComponent], // Import instead of declare
+      imports: [RouterTestingModule, CountryListComponent],
       providers: [
         { provide: CountryService, useValue: countryService },
         { provide: Router, useValue: router }
