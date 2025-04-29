@@ -4,6 +4,7 @@ using CountryExplorer.Core.Interfaces;
 using CountryExplorer.Core.Mappers;
 using CountryExplorer.Infrastructure.Interfaces;
 using CountryExplorer.Infrastructure.Repositories;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -21,6 +22,13 @@ namespace CountryExplorer.UnitTests.IntegrationTests.Handlers
 		public GetAllCountriesHandlerIntegrationTests()
 		{
 			_services = new ServiceCollection();
+
+			var configuration = new ConfigurationBuilder()
+		.AddInMemoryCollection(new Dictionary<string, string>
+		{
+			{ "Urls:CountryApiBaseUrl", "https://restcountries.com/v3.1" }
+		})
+		.Build();
 
 			_services.AddMemoryCache();
 			_services.AddHttpClient();
