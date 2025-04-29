@@ -23,7 +23,7 @@ namespace CountryExplorer.UnitTests.IntegrationTests.Handlers
 			var configuration = new ConfigurationBuilder()
 		.AddInMemoryCollection(new Dictionary<string, string>
 		{
-			{ "ApiSettings:CountryApiBaseUrl", "https://restcountries.com/v3.1" }
+			{ "Urls:CountryApiBaseUrl", "https://restcountries.com/v3.1" }
 		})
 		.Build();
 
